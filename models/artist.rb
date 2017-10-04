@@ -6,13 +6,13 @@ class Artist
 
     def initialize(options)
         @id = options['id'].to_i if options['id']
-        @artist_name = options['arist_name']
+        @artist_name = options['artist_name']
     end
 
     def save()
-        sql = "INSERT INTO artists ( artist_id ) VALUES ( $1 ) RETURNING id;"
+        sql = "INSERT INTO artists ( artist_name ) VALUES ( $1 ) RETURNING id;"
         values = [@artist_name]
-        result = SqlRunner.new(sql, 'save_artist', values)
+        result = SqlRunner.run(sql, 'save_artist', values)
         @id = result[0]['id'].to_i
     end
 
